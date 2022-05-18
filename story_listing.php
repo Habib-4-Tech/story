@@ -106,18 +106,25 @@ $results_per_page=4;
 
 
 
-
+    <form action="delete.php" method="post">
 
     <p class="split-para"><a href="#" class="button">Button</a>
     <a href="#" class="button">Button</a>
     
     <span>
     <a href="edit.php?Story_id=<?= $value['id'] ?>" class="button" >Edit</a>
-    <a href="#" class="button">Button</a>
+    
+  
+
+            <button type="submit" class="button" name="submit" >Delete</button>
+          </right>
+            <input type="text" class="form-control" id="Story_id"  name="Story_id" value='<?= $value['id']?>' hidden >
+             
+
 </span></p>
 
 
-
+</form>
 
 
     
