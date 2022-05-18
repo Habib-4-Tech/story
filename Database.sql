@@ -14,9 +14,13 @@ CREATE TABLE story
 (
   id BIGINT NOT NULL AUTO_INCREMENT,
   title TEXT(500) NOT NULL,
-  body VARCHAR(max) NOT NULL,
+  body LONGTEXT NOT NULL,
   p_date DATE NOT NULL,
   user_id VARCHAR(50),
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user_data(user_id) ON DELETE CASCADE
 );
+
+
+ALTER TABLE story
+ADD str_date varchar(255);

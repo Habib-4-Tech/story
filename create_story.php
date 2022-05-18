@@ -10,15 +10,15 @@ if (isset($_POST['submit'])) {
 
     $title=$_POST['title'];
     $text=$_POST['text'];
-    $date=$_POST['date'];
+    $date_str=$_POST['date'];
     $text = mysqli_real_escape_string($connection, $text);
     $title= mysqli_real_escape_string($connection, $title);
 
-    $date= date('Y/m/d',strtotime($date));
+    $date= date('Y/m/d',strtotime($date_str));
 
   
 
-    $sql= "INSERT INTO story(title,body,p_date) VALUES('$title','$text','$date') ";
+    $sql= "INSERT INTO story(title,body,p_date,str_date) VALUES('$title','$text','$date','$date_str') ";
 
     if (mysqli_query($connection, $sql)) {
         echo "<h3>Your blog has been posted.";
@@ -86,20 +86,9 @@ if (isset($_POST['submit'])) {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 </head>
+
 
 
 
