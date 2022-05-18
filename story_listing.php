@@ -4,16 +4,9 @@ include('db.php');
 
 ?>
 
-
-
-
 <?php
-
-$sql = "SELECT id,title,body,str_date, user_id FROM story order by p_date DESC" ;
-$result = mysqli_query($connection, $sql);
-
+$results_per_page=4;
 ?>
-
 
 
 <!DOCTYPE html>
@@ -53,16 +46,46 @@ $result = mysqli_query($connection, $sql);
 
 </head>
 <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="conatiner" style="text-align:center;padding:50px;"><h1><b> Stories Listing </b> </h1></div>  
-  <?php 
-  var_dump($result);
-  ?>
 
   <?php 
+ if (isset($_GET["page"])) { 
+     $page  = $_GET["page"];
+     } 
+ else {
+      $page=1; 
+    };
+ $start_from = ($page-1) * $results_per_page;
+ $sql = "SELECT * FROM story ORDER BY p_date DESC LIMIT $start_from, ".$results_per_page;
+ $result = mysqli_query($connection, $sql);
+ ?>
+
+
+
+ <?php 
     foreach($result as $key => $value) {
      ?>
 
-<div class="card w-80" style="padding:35px; margin: 0px 0px 40px 40px ;">
+<div class="card w-80" style="padding: 40px; margin: 0px 0px 40px 40px ;">
   <div class="card-body">
     <h3 class="card-title"><?=  $value['title']?></h3>
     <h5  class="card-text">
@@ -79,6 +102,48 @@ $result = mysqli_query($connection, $sql);
 <?php
     }
     ?>
+
+
+<center>
+
+ <?php
+ $sql = "SELECT COUNT(id) AS total FROM story";
+
+ $result = mysqli_query($connection, $sql);
+$result= mysqli_fetch_assoc($result);
+ $total_pages = ceil($result["total"] / $results_per_page); // calculate total pages with results
+   
+
+if ($page>1)
+{
+    echo "<a href='story_listing?page=".($page-1)."'class='btn btn-danger'> << </a>";
+}
+
+
+ for ($i=1; $i<=$total_pages; $i++) {  // print links for all pages
+             echo "<a href='story_listing.php?page=".$i."' class='btn btn-primary'";
+             if ($i==$page)  echo " class='curPage'";
+             echo ">".$i."</a> ";
+ }
+
+ if ($i>$page)
+ {
+     echo "<a href='story_listing.php?page=".($page+1)."'class='btn btn-danger'> >> </a>";
+ }
+
+ ?>
+</center>
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>
