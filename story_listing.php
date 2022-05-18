@@ -42,6 +42,9 @@ $results_per_page=4;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+
+.split-para      { display:block;margin:10px;}
+.split-para span { display:block;float:right;width:20%;margin-left:10px;}
 </style>
 
 </head>
@@ -93,9 +96,32 @@ $results_per_page=4;
      By <?=  $value['user_id']?>  on <?=  $value['str_date']?> 
 
     </h5>
+
+
+
     <p class="card-text"><?=  $value['body']?></p>
+
+
+
+
+
+
+
+
+    <p class="split-para"><a href="#" class="button">Button</a>
     <a href="#" class="button">Button</a>
+    
+    <span>
+    <a href="edit.php?Story_id=<?= $value['id'] ?>" class="button" >Edit</a>
     <a href="#" class="button">Button</a>
+</span></p>
+
+
+
+
+
+    
+
   </div>
 </div>
 
