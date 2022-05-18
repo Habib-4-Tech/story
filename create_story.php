@@ -21,9 +21,9 @@ if (isset($_POST['submit'])) {
     $sql= "INSERT INTO story(title,body,p_date,str_date) VALUES('$title','$text','$date','$date_str') ";
 
     if (mysqli_query($connection, $sql)) {
-        echo "<h3>Your blog has been posted.";
+        echo "<h3>Your story has been posted.";
         echo $date;
-       // header("Location: landing.php");
+       header("Location: story_listing.php");
 
     } else {
         echo "ERROR! wasn't posted please try again <br>" . mysqli_error($connection);
