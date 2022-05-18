@@ -108,7 +108,7 @@ $results_per_page=4;
 
     <form action="delete.php" method="post">
 
-    <p class="split-para"><a href="#" class="button">Button</a>
+    <p class="split-para">       <a href="json.php?Story_id=<?= $value['id'] ?>" class="button" >JSON</a>
     <a href="#" class="button">Button</a>
     
     <span>
