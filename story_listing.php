@@ -126,10 +126,14 @@ if ($page>1)
              echo ">".$i."</a> ";
  }
 
+
+ 
+if($page<$total_pages){
  if ($i>$page)
  {
      echo "<a href='story_listing.php?page=".($page+1)."'class='btn btn-danger'> >> </a>";
  }
+}
 
  ?>
 </center>
