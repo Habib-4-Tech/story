@@ -1,6 +1,9 @@
 <?php
 include('db.php');
 
+session_start();
+$priv=$_SESSION['USER_DATA']['ID'];
+
 ?>
 
 <?php
@@ -94,7 +97,7 @@ $results_per_page = 4;
     $page = 1;
   };
   $start_from = ($page - 1) * $results_per_page;
-  $sql = "SELECT * FROM story ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
+  $sql = "SELECT * FROM story NATURAL JOIN user_data ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
   $result = mysqli_query($connection, $sql);
   ?>
 
@@ -109,7 +112,7 @@ $results_per_page = 4;
         <h3 class="card-title"><?= $value['title'] ?></h3>
         <h5 class="card-text">
 
-          By <?= $value['user_id'] ?> on <?= $value['str_date'] ?>
+          By <?= $value['full_name'] ?> on <?= $value['str_date'] ?>
 
         </h5>
 
@@ -131,6 +134,11 @@ $results_per_page = 4;
           <a href="json.php?Story_id=<?= $value['id'] ?>" class="button">JSON</a>
            
 
+          <?php
+          if($priv==$value['user_id'])
+          {
+            ?>
+
             <span>
               <a href="edit.php?Story_id=<?= $value['id'] ?>" class="button">Edit</a>
 
@@ -138,10 +146,12 @@ $results_per_page = 4;
 
               <button type="submit" class="button" name="submit">Delete</button>
               </right>
+             
+
               <input type="text" class="form-control" id="Story_id" name="Story_id" value='<?= $value['id'] ?>' hidden>
-
-
+ 
             </span>
+            <?php } ?>
           </p>
 
 
