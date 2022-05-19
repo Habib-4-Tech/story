@@ -7,6 +7,7 @@ if (!isset($_SESSION['USER_DATA'])) {
   header("Location: login.php");
 }
 
+$x=$_SESSION['USER_DATA']['ID'];
 
 ?>
 
@@ -23,7 +24,7 @@ if (isset($_POST['submit'])) {
 
 
 
-  $sql = "INSERT INTO story(title,body,p_date,str_date) VALUES('$title','$text','$date','$date_str') ";
+  $sql = "INSERT INTO story(title,body,p_date,str_date,user_id) VALUES('$title','$text','$date','$date_str','$x') ";
 
   if (mysqli_query($connection, $sql)) {
     echo "<h3>Your story has been posted.";
