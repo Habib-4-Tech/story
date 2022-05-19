@@ -1,5 +1,12 @@
 <?php
-include('db.php')
+include('db.php');
+session_start();
+
+if (!isset($_SESSION['USER_DATA']))  {
+      
+  header("Location: login.php");
+     
+}
 
 
 ?>
