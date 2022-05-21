@@ -1,3 +1,4 @@
+
 <?php
 include('db.php');
 
@@ -7,7 +8,10 @@ $priv=$_SESSION['USER_DATA']['ID'];
 ?>
 
 <?php
+$is_res=false;
 $results_per_page = 4;
+$page=1;
+$search="";
 ?>
 
 
@@ -69,26 +73,24 @@ $results_per_page = 4;
 <body>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="conatiner" style="text-align:center;padding:50px;">
-    <h1><b> Stories Listing </b> </h1>
+<div class="conatiner" style="text-align:center;padding:50px;">
+    <h1><b>  Search Stories </b> </h1>
   </div>
+
+<div class="container bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
+<form action="new.php" method="GET">
+
+<input type="text" size="100" name="search" id="search">
+
+<button type="submit" class="button" name="submit" >Search</button>
+
+
+
+
+</form>
+
+  </div>
+
 
   <?php
   if (isset($_GET["page"])) {
@@ -96,14 +98,33 @@ $results_per_page = 4;
   } else {
     $page = 1;
   };
+
+  
+
+  if(isset($_GET['search']) && $_GET['search']!="")
+  {
+
+  $search= $_GET['search'];
+
+  $search= mysqli_real_escape_string($connection, $search);
   $start_from = ($page - 1) * $results_per_page;
-  $sql = "SELECT * FROM story NATURAL JOIN user_data ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
+  $sql = "SELECT * FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
   $result = mysqli_query($connection, $sql);
+  if(mysqli_fetch_assoc($result)==0){
+    echo "<h1 align='center'><b> No matches found </b> </h1> ";
+  }
+  else{
+    $is_res=true;
+  }
+
+  }
   ?>
 
 
 
   <?php
+
+if($is_res==true){
   foreach ($result as $key => $value) {
   ?>
 
@@ -165,26 +186,38 @@ $results_per_page = 4;
     <br>
   <?php
   }
+}
   ?>
 
 
   <center>
 
-    <?php
-    $sql = "SELECT COUNT(id) AS total FROM story";
 
+
+
+    <?php
+    if($is_res==true)
+
+    {
+    $sql="SELECT COUNT(id) AS total FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' ";
     $result = mysqli_query($connection, $sql);
     $result = mysqli_fetch_assoc($result);
     $total_pages = ceil($result["total"] / $results_per_page); // calculate total pages with results
 
 
+
+
+
+
+
     if ($page > 1) {
-      echo "<a href='story_listing.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "<a href='new.php?search=$search&page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "&nbsp";
     }
 
 
     for ($i = 1; $i <= $total_pages; $i++) {  // print links for all pages
-      echo "<a href='story_listing.php?page=" . $i . "' class='btn btn-dark'";
+      echo "<a href='new.php?search=$search&page=" . $i . "' class='btn btn-dark'";
       if ($i == $page)  echo " class='curPage'";
       echo ">" . $i . "</a> ";
     }
@@ -193,10 +226,10 @@ $results_per_page = 4;
   
     if ($page < $total_pages) {
       if ($page > 1 ) {
-        echo "<a href='story_listing.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
+        echo "<a href='new.php?search=$search&page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
       }
     }
-
+    }
     ?>
   </center>
 

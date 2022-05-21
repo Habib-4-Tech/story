@@ -111,27 +111,30 @@ function test_input($data)
         }
 
         .button {
-            background-color: black;
-            /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            -webkit-transition-duration: 0.4s;
-            /* Safari */
-            transition-duration: 0.4s;
-        }
+      background-color: black;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-weight: 600;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s;
+
+    }
 
 
-
-        .button:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
+    .button:hover {
+      border: 2px solid black;
+      color: black;
+      text-transform: none;
+      background-color: white;
+    }
     </style>
 </head>
 
@@ -140,11 +143,11 @@ function test_input($data)
 
 <body>
 
+  <br>
 
-    <div class="card " style="padding: 40px; margin: auto ; width:70%; border: 0%; box-shadow:0 0 0 0;">
+        <h1 align=center><b> User Login </b></h1> <br>
 
-        <h1 align=center><b> User Registration </b></h1>
-
+        <div class="card bg-light text-dark " style="padding: 40px; margin: auto ; width:70%; border: 0%; box-shadow:0 0 0 0;">
 
         <form action="login.php" method="post">
 

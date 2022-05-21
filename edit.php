@@ -93,32 +93,37 @@ if (isset($_POST['submit'])) {
    
 
 
-    <title>Create Story</title>
+    <title>Edit Story</title>
 
 
     <style>
  
 
  .button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
+      background-color: black;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-weight: 600;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s;
+
+    }
 
 
-
-.button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
+    .button:hover {
+      border: 2px solid black;
+      color: black;
+      text-transform: none;
+      background-color: white;
+    }
 
 </style>
 </head>
@@ -127,17 +132,17 @@ if (isset($_POST['submit'])) {
 
 
 <body>
-<div class= "container" style=" padding:25px; text-align:center;" >
+<div class= "container " style=" padding:25px; text-align:center;" >
 
 <h1> <b> Edit Story </b></h1>
 </div>
 
-  <div class= "container" style=" padding:50px;" >
+  <div class= "container  bg-light text-dark" style=" padding:50px;" >
 
     <form action="" method="post" class="needs-validation" enctype="multipart/form-data">
 
         <div class="mb-3">
-            <label for="storytitle" class="form-label">Title</label>
+            <label for="storytitle" class="form-label"><b>Title</b></label>
             <input type="text" class="form-control" id="storytitle" name="title" placeholder=""  value="<?= $N_title?>"required>
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>

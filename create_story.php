@@ -65,10 +65,10 @@ if (isset($_POST['submit'])) {
 
   <style>
     .button {
-      background-color: #4CAF50;
+      background-color: whitesmoke;
       /* Green */
       border: none;
-      color: white;
+      color: black;
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
@@ -93,12 +93,12 @@ if (isset($_POST['submit'])) {
 
 
 <body>
-  <div class="container" style=" padding:25px; text-align:center;">
+  <div class="card bg-light text-dark" style=" padding:25px; text-align:center;">
 
     <h1> <b> Create New Story </b></h1>
   </div>
 
-  <div class="container" style=" padding:50px;">
+  <div class="container bg-dark text-white" style=" padding:50px;">
 
     <form action="" method="post" class="needs-validation" enctype="multipart/form-data">
 

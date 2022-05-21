@@ -20,9 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $namelen = strlen($Name);
         if ($namelen < 4 || $namelen > 70) {
             $NameErr = "Name must be between 4 and 70 characters";
-        }
-        
-        elseif (!preg_match("/^([a-zA-Z-'\.]+\s[a-zA-Z-']+(\s[a-zA-Z-']+)?)$/", $Name)) {
+        } elseif (!preg_match("/^([a-zA-Z-'\.]+\s[a-zA-Z-']+(\s[a-zA-Z-']+)?)$/", $Name)) {
             if (preg_match("/^([a-zA-Z-']+)$/", $Name)) {
                 $NameErr = "Last Name required";
             } else {
@@ -32,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
-   
+
     if (empty($_POST["id"])) {
         $idErr = "ID is required";
     } else {
@@ -62,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    
+
     // Password validation
     if (empty($_POST["password"])) {
         $PasswordErr = "password is required";
@@ -77,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $PasswordErr = "Password must contain at least 1 lowercase leter";
         } elseif (!preg_match('/[0-9]/', $Password)) {
             $PasswordErr = "Password must contain at least 1 digit";
-        } 
+        }
     }
 
     if (empty($_POST["conf_password"])) {
@@ -104,10 +102,9 @@ function test_input($data)
 
 if ($NameErr == "" && $idErr == "" && $PasswordErr == "" && $Conf_passwordErr == "") {
 
-echo "1";
+
     if (isset($_POST['submit'])) {
 
-       echo "2";
         $sql = "INSERT INTO user_data(user_id, password,full_name) VALUES ('$id','$Password','$Name')";
 
         if (mysqli_query($connection, $sql)) {
@@ -140,6 +137,33 @@ echo "1";
         span {
             color: red;
         }
+
+        .button {
+      background-color: black;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-weight: 600;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s;
+
+    }
+
+
+    .button:hover {
+      border: 2px solid black;
+      color: black;
+      text-transform: none;
+      background-color: white;
+    }
+
     </style>
 </head>
 
@@ -148,52 +172,48 @@ echo "1";
 
 <body>
 
+    <br>
+    <h1 align=center><b> User Registration </b></h1><br>
 
-<div class="card " style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
+    <div class="card bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
 
-<h1 align=center><b> User Registration </b></h1>
+        <form action="register.php" method="post">
 
-
-
-
-
-<form action="register.php" method="post">
-
-  <div class="form-group">
-    <label for="name">Full Name</label>
-    <input type="text" class="form-control" id="name" name="name"  placeholder="Your fullname">
-    <span> * <?php echo $NameErr ?></span>
-  </div>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Your fullname">
+                <span> * <?php echo $NameErr ?></span>
+            </div>
 
 
-  <div class="form-group">
-    <label for="user_id">User ID</label>
-    <input type="text" class="form-control" name="id"  id="id"  placeholder="User ID must be unique and alphanumeric only">
-    <span> * <?php echo $idErr ?></span>
-  </div>
+            <div class="form-group">
+                <label for="user_id">User ID</label>
+                <input type="text" class="form-control" name="id" id="id" placeholder="User ID must be unique and alphanumeric only">
+                <span> * <?php echo $idErr ?></span>
+            </div>
 
 
 
 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password" id="Password" placeholder="">
-    <small id="passwordHelp" class="form-text text-muted">Password must be 6-20 characters long. Must conatian atleast 1 upper case letter,1 lower case letter and a digit</small>
-    <span> * <?php echo $PasswordErr ?></span>  
-</div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="Password" placeholder="">
+                <small id="passwordHelp" class="form-text text-muted">Password must be 6-20 characters long. Must conatian atleast 1 upper case letter,1 lower case letter and a digit</small>
+                <span> * <?php echo $PasswordErr ?></span>
+            </div>
 
 
-  <div class="form-group">
-    <label for="conf_password">Confirm password</label>
-    <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="">
-    <span> * <?php echo $Conf_passwordErr ?></span>
-  </div>
+            <div class="form-group">
+                <label for="conf_password">Confirm password</label>
+                <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="">
+                <span> * <?php echo $Conf_passwordErr ?></span>
+            </div>
 
 
+<center>
 
- 
-  <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-</form>
+            <button type="submit" name='submit' class="button">Submit</button> </center>
+        </form>
 
 
 
