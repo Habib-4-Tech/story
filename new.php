@@ -80,7 +80,7 @@ $search="";
 <div class="container bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
 <form action="new.php" method="GET">
 
-<input type="text" size="100" name="search" id="search">
+<input type="text" size="100" name="search" id="search" placeholder="Search by Title/Body/Author">
 
 <button type="submit" class="button" name="submit" >Search</button>
 
@@ -108,7 +108,7 @@ $search="";
 
   $search= mysqli_real_escape_string($connection, $search);
   $start_from = ($page - 1) * $results_per_page;
-  $sql = "SELECT * FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
+  $sql = "SELECT * FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' or full_name LIKE '%$search%' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
   $result = mysqli_query($connection, $sql);
   if(mysqli_fetch_assoc($result)==0){
     echo "<h1 align='center'><b> No matches found </b> </h1> ";
@@ -199,7 +199,7 @@ if($is_res==true){
     if($is_res==true)
 
     {
-    $sql="SELECT COUNT(id) AS total FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' ";
+    $sql="SELECT COUNT(id) AS total FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' or full_name LIKE '%$search%' ";
     $result = mysqli_query($connection, $sql);
     $result = mysqli_fetch_assoc($result);
     $total_pages = ceil($result["total"] / $results_per_page); // calculate total pages with results

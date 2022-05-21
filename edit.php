@@ -1,7 +1,7 @@
 <?php
 include('db.php');
 session_start();
-
+include('nav.php');
 if (!isset($_SESSION['USER_DATA']))  {
       
   header("Location: login.php");

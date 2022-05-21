@@ -1,9 +1,16 @@
 <?php
 include('db.php');
 
+$priv="";
+
 session_start();
+if (isset($_SESSION['USER_DATA'])) {
+
+
 $priv=$_SESSION['USER_DATA']['ID'];
 
+include('nav.php');
+}
 ?>
 
 <?php
@@ -135,6 +142,7 @@ $results_per_page = 4;
            
 
           <?php
+          
           if($priv==$value['user_id'])
           {
             ?>
@@ -180,6 +188,7 @@ $results_per_page = 4;
 
     if ($page > 1) {
       echo "<a href='story_listing.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "&nbsp";
     }
 
 

@@ -1,6 +1,7 @@
 <?php
 include('db.php');
 session_start();
+include('nav.php');
 
 if (!isset($_SESSION['USER_DATA'])) {
 
@@ -64,27 +65,30 @@ if (isset($_POST['submit'])) {
 
 
   <style>
-    .button {
-      background-color: whitesmoke;
-      /* Green */
-      border: none;
-      color: black;
-      padding: 15px 32px;
+ .button {
+      background-color: black;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      color: white;
+      padding: 10px 20px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
+      font-size: 17px;
       margin: 4px 2px;
       cursor: pointer;
-      -webkit-transition-duration: 0.4s;
-      /* Safari */
-      transition-duration: 0.4s;
+      font-weight: 600;
+      -webkit-transition-duration: 0.1s;
+      transition-duration: 0.1s;
+
     }
 
 
-
     .button:hover {
-      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      border: 2px solid black;
+      color: black;
+      text-transform: none;
+      background-color: white;
     }
   </style>
 </head>
@@ -93,12 +97,13 @@ if (isset($_POST['submit'])) {
 
 
 <body>
-  <div class="card bg-light text-dark" style=" padding:25px; text-align:center;">
 
-    <h1> <b> Create New Story </b></h1>
-  </div>
+<div class= "container " style=" padding:25px; text-align:center;" >
 
-  <div class="container bg-dark text-white" style=" padding:50px;">
+<h1> <b> Create Story </b></h1>
+</div>
+
+ <div class= "container  bg-light text-dark" style=" padding:50px;" >
 
     <form action="" method="post" class="needs-validation" enctype="multipart/form-data">
 
@@ -115,14 +120,6 @@ if (isset($_POST['submit'])) {
         <div class="valid-feedback"><b>Valid.</b></div>
         <div class="invalid-feedback"><b>Please fill out this field.</b></div>
       </div>
-
-
-
-
-
-
-
-
 
 
 
