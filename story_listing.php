@@ -7,18 +7,18 @@ session_start();
 if (isset($_SESSION['USER_DATA'])) {
 
 $priv=$_SESSION['USER_DATA']['ID'];
-include('nav.php');
+include('nav.php');                //navigation bar is displayed to logged in users
 }
 
 else{
-  include('nav_g.php');
+  include('nav_g.php');   //differet navigation bar displayed to uses who are not logged in
 }
 
 
 ?>
 
 <?php
-$results_per_page = 4;
+$results_per_page = 4;     //this variable will be used to display ony 4 stories per page
 ?>
 
 
@@ -110,20 +110,22 @@ $results_per_page = 4;
   </div>
 
   <?php
-  if (isset($_GET["page"])) {
-    $page  = $_GET["page"];
+  if (isset($_GET["page"])) {   
+    $page  = $_GET["page"]; //page number is stored in variable
   } else {
-    $page = 1;
+    $page = 1;  //default to page 1 if $_GET['page'] is not set
   };
-  $start_from = ($page - 1) * $results_per_page;
-  $sql = "SELECT * FROM story NATURAL JOIN user_data ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
+  $start_from = ($page - 1) * $results_per_page;  // used to find from where/which index to start fetching data 
+  $sql = "SELECT * FROM story NATURAL JOIN user_data ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;  //desired number of stories fetched tsrating from start index
   $result = mysqli_query($connection, $sql);
   ?>
 
 
 
   <?php
-  foreach ($result as $key => $value) {
+  if(mysqli_fetch_assoc($result)>0) //checks if atleast 1 story is found
+ {
+  foreach ($result as $key => $value) {  // displays the fetched stories
   ?>
 
     <div class="card bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
@@ -155,7 +157,7 @@ $results_per_page = 4;
 
           <?php
           
-          if($priv==$value['user_id'])
+          if($priv==$value['user_id']) // user can only edit or delete his own stories. Made sure by matching sesssion  user_id with fetched user_id
           {
             ?>
 
@@ -182,6 +184,14 @@ $results_per_page = 4;
     <br>
   <?php
   }
+
+ }
+
+else{
+  echo "<h3><b> No story available </b> </h3>";
+}
+
+
   ?>
 
 
@@ -191,24 +201,24 @@ $results_per_page = 4;
     $sql = "SELECT COUNT(id) AS total FROM story";
 
     $result = mysqli_query($connection, $sql);
-    $result = mysqli_fetch_assoc($result);
+    $result = mysqli_fetch_assoc($result); // finds total number of stories
     $total_pages = ceil($result["total"] / $results_per_page); // calculate total pages with results
 
 
     if ($page > 1) {
-      echo "<a href='story_listing.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "<a href='story_listing.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>"; //Displays go to previous page button
       echo "&nbsp";
     }
 
 
-    for ($i = 1; $i <= $total_pages; $i++) { 
+    for ($i = 1; $i <= $total_pages; $i++) {      
       
       $class="btn btn-dark";
 
       if ($i == $page){
         $class="btn btn-light";
       }          
-      echo "<a href='story_listing.php?page=$i'class='$class'>  $i </a> ";
+      echo "<a href='story_listing.php?page=$i'class='$class'>  $i </a> ";   //displays all the page buttons with corresponding links
       
    
     }
@@ -217,7 +227,7 @@ $results_per_page = 4;
   
     if ($page < $total_pages) {
       if ($page > 1 ) {
-        echo "<a href='story_listing.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
+        echo "<a href='story_listing.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";  //Displays go to next page button
       }
     }
 

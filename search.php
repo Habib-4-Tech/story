@@ -7,16 +7,16 @@ session_start();
 
 if (!isset($_SESSION['USER_DATA'])) {
 
-    header("Location: login.php");
+    header("Location: login.php"); // not logged in user redirected to login page
   }
-$priv=$_SESSION['USER_DATA']['ID'];
+$priv=$_SESSION['USER_DATA']['ID'];   
 include('nav.php');
 
 
 ?>
 
 <?php
-$is_res=false;
+$is_res=false;         //global variables declared
 $results_per_page = 4;
 $page=1;
 $search="";
@@ -85,6 +85,8 @@ $search="";
     <h1><b>  Search Stories </b> </h1>
   </div>
 
+ <!-- Form takes search request by Title/Author/Single key word  -->
+
 <div class="container bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
 <form action="search.php" method="GET">
 
@@ -102,19 +104,21 @@ $search="";
 
   <?php
   if (isset($_GET["page"])) {
-    $page  = $_GET["page"];
+    $page  = $_GET["page"];  //gets page number
   } else {
-    $page = 1;
+    $page = 1;  // page number set to deafault 1 if no page is requested
   };
 
   
 
-  if(isset($_GET['search']) && $_GET['search']!="")
+  if(isset($_GET['search']) && $_GET['search']!="")  //checks if $_GET['search'] is set and not null
   {
 
   $search= $_GET['search'];
-  $search= test_input($search);
-  $search= mysqli_real_escape_string($connection, $search);
+  $search= mysqli_real_escape_string($connection, $search); // This function adds a escape character before potentialy dangerous characters and helps prevent SQL injection attacks 
+
+
+ 
   $start_from = ($page - 1) * $results_per_page;
   $sql = "SELECT * FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' or full_name LIKE '%$search%' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
   $result = mysqli_query($connection, $sql);
@@ -122,7 +126,7 @@ $search="";
     echo "<h1 align='center'><b> No matches found </b> </h1> ";
   }
   else{
-    $is_res=true;
+    $is_res=true; //flag to identify that atleast one or more results have been fetched by the search query
   }
 
   }
@@ -130,14 +134,6 @@ $search="";
 
 
 
-
-  function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
   ?>
 
 
@@ -145,7 +141,7 @@ $search="";
   <?php
 
 if($is_res==true){
-  foreach ($result as $key => $value) {
+  foreach ($result as $key => $value) {  //fetched results are displayed
   ?>
 
     <div class="card bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
@@ -176,7 +172,7 @@ if($is_res==true){
            
 
           <?php
-          if($priv==$value['user_id'])
+          if($priv==$value['user_id']) //only author can see edit and delete button
           {
             ?>
 
@@ -219,7 +215,7 @@ if($is_res==true){
     if($is_res==true)
 
     {
-    $sql="SELECT COUNT(id) AS total FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' or full_name LIKE '%$search%' ";
+    $sql="SELECT COUNT(id) AS total FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' or full_name LIKE '%$search%' "; // finds total number of stories found after running query
     $result = mysqli_query($connection, $sql);
     $result = mysqli_fetch_assoc($result);
     $total_pages = ceil($result["total"] / $results_per_page); // calculate total pages with results
@@ -231,7 +227,7 @@ if($is_res==true){
 
 
     if ($page > 1) {
-      echo "<a href='search.php?search=$search&page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "<a href='search.php?search=$search&page=" . ($page - 1) . "'class='btn btn-dark'> << </a>"; //displays go to previous page button.Carrys page number and search key.
       echo "&nbsp";
     }
 
@@ -246,14 +242,14 @@ if($is_res==true){
       if ($i == $page){
         $class="btn btn-light";
       }          
-      echo "<a href='search.php?search=$search&page=" . $i . "'class='$class'>  $i </a> ";
+      echo "<a href='search.php?search=$search&page=" . $i . "'class='$class'>  $i </a> "; //displays all page buttons with corresponding links. The links carry page number and search key
       
     }
 
   
     if ($page < $total_pages) {
       if ($page > 1 ) {
-        echo "<a href='search.php?search=$search&page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
+        echo "<a href='search.php?search=$search&page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>"; //displays go to next page button. Carrys page number and search key.
       }
     }
     }

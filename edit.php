@@ -4,7 +4,7 @@ session_start();
 include('nav.php');
 if (!isset($_SESSION['USER_DATA']))  {
       
-  header("Location: login.php");
+  header("Location: login.php"); //redirects people who are not logged in to login page.
      
 }
 
@@ -21,12 +21,14 @@ if (isset($_GET['Story_id']))
 
 $Story_id=$_GET['Story_id'];
 
-$sql= "Select *  FROM story where id= $Story_id";
+$sql= "Select *  FROM story where id= $Story_id";  
 
 $result = mysqli_query($connection, $sql);
-$result = mysqli_fetch_assoc($result);
+$result = mysqli_fetch_assoc($result);   
 $N_title= $result['title'];
-$N_title=htmlentities($N_title);
+$N_title=htmlentities($N_title);  //converts special characters to html entities 
+
+
 $N_text= $result['body'];
 
 $N_date=$result['str_date'];
@@ -46,17 +48,17 @@ if (isset($_POST['submit'])) {
     $title=$_POST['title'];
     $text=$_POST['text'];
     $date_str=$_POST['date'];
-    $text = mysqli_real_escape_string($connection, $text);
-    $title= mysqli_real_escape_string($connection, $title);
+    $text = mysqli_real_escape_string($connection, $text); // This function adds a escape character before potentialy dangerous characters and helps prevent SQL injection attacks 
+    $title= mysqli_real_escape_string($connection, $title); //escapes special characters
 
-    $date= date('Y/m/d',strtotime($date_str));
+    $date= date('Y/m/d',strtotime($date_str));  // string converted to date and stored in $date variable
 
   
 
     $sql = "UPDATE story SET title='$title',body='$text',p_date='$date',str_date=' $date_str' WHERE id= $Story_id";
 
     if (mysqli_query($connection, $sql)) {
-        echo "<h3>Your story has been edited.";
+        echo "<h3>Your story has been edited successfully.";
     
      // header("Location: story_listing.php");
 
@@ -65,8 +67,6 @@ if (isset($_POST['submit'])) {
     }
    
     mysqli_close($connection);
-
-    //header("Location: explore.php");
     die;
 
 }
@@ -182,7 +182,7 @@ if (isset($_POST['submit'])) {
 
 
 <script>
-        $("#datepicker").datepicker({
+        $("#datepicker").datepicker({   //JQuery date picker used to take date input in desried format.
           dateFormat: "dd MM yy"
         });
 

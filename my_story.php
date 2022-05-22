@@ -1,23 +1,23 @@
 <?php
 include('db.php');
 
-$priv="";
+$priv=""; //global variable
 
 session_start();
 if (isset($_SESSION['USER_DATA'])) {
 
 
-$priv=$_SESSION['USER_DATA']['ID'];
+$priv=$_SESSION['USER_DATA']['ID']; //Logged in user's ID  is stored in variable
 
-include('nav.php');
+include('nav.php');  
 }
 else{
-    header("Location: login.php");
+    header("Location: login.php"); // not logged in user redirected to login page
 }
 ?>
 
 <?php
-$results_per_page = 4;
+$results_per_page = 4; //this variable will be used to display ony 4 stories per page
 ?>
 
 
@@ -84,19 +84,19 @@ $results_per_page = 4;
 
   <?php
   if (isset($_GET["page"])) {
-    $page  = $_GET["page"];
+    $page  = $_GET["page"]; //page number is stored in variable
   } else {
-    $page = 1;
+    $page = 1; //default to page 1 if $_GET['page'] is not set
   };
   $start_from = ($page - 1) * $results_per_page;
-  $sql = "SELECT * FROM story NATURAL JOIN user_data where user_id='$priv' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
+  $sql = "SELECT * FROM story NATURAL JOIN user_data where user_id='$priv' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;  //fetch stories that has matching user_id with  users id
   $result = mysqli_query($connection, $sql);
   ?>
 
 
 
   <?php
-  foreach ($result as $key => $value) {
+  foreach ($result as $key => $value) { //display feteched stories
   ?>
 
     <div class="card bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
@@ -128,7 +128,7 @@ $results_per_page = 4;
 
           <?php
           
-          if($priv==$value['user_id'])
+          if($priv==$value['user_id'])   //only author can see edit and delete button
           {
             ?>
 
@@ -172,7 +172,7 @@ $results_per_page = 4;
 
 
     if ($page > 1) {
-      echo "<a href='my_story.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "<a href='my_story.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>"; //displays go to previous page button.Carrys page number.
       echo "&nbsp";
     }
 
@@ -188,7 +188,7 @@ $results_per_page = 4;
       if ($i == $page){
         $class="btn btn-light";
       }          
-      echo "<a href='my_story.php?page=$i'class='$class'>  $i </a> ";
+      echo "<a href='my_story.php?page=$i'class='$class'>  $i </a> ";    //displays all the page buttons with corresponding links
       
     }
 
@@ -196,7 +196,7 @@ $results_per_page = 4;
   
     if ($page < $total_pages) {
       if ($page > 1 ) {
-        echo "<a href='my_story.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
+        echo "<a href='my_story.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";    //displays go to next page button.Carrys page number.
       }
     }
 

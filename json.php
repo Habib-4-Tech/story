@@ -30,7 +30,7 @@ $N_date=$result['str_date'];
 
 $arr = array('title' => $N_title , 'body' => $N_text, 'published_date' => $N_date);
 
-echo json_encode($arr);
+echo json_encode($arr);  //output the encoded data in JSON format
 }
 else
 {

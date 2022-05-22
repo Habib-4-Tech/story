@@ -3,7 +3,11 @@
 
 include('db.php');
 
-
+if (!isset($_SESSION['USER_DATA']))  {
+      
+  header("Location: login.php"); //redirects people who are not logged in to login page.
+     
+}
 
 
 
@@ -21,7 +25,7 @@ if( isset($_GET['submit']))
 if (mysqli_query($connection, $sql)) {
 
     echo "<h3>Your story has been deleted.";
-   header("Location: story_listing.php");
+   header("Location: story_listing.php");     //redirect to stories listing page upon successful deletion
 } 
 else {
     echo "ERROR! wasn't deleted please try again <br>" . mysqli_error($connection);
@@ -134,14 +138,18 @@ $value=mysqli_fetch_assoc($result);
 
    <form action="delete.php" method="GET">
 
-  <input type="text" class="form-control" id="Story_id" name="Story_id" value='<?= $del ?>' hidden>
+  <!-- confirm if user really wants to delete his tory parmanently -->
+
+  <input type="text" class="form-control" id="Story_id" name="Story_id" value='<?= $del ?>' hidden> 
 
   <button type="submit" class="button" name="submit">YES</button>
 
   
    </form>
 
-   <a href="story_listing.php" class="button">NO</a>
+    <!-- redirect user to story_listing page if he decides not to delet -->
+
+   <a href="story_listing.php" class="button">NO</a> 
 
 
   </div>

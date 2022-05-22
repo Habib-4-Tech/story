@@ -5,7 +5,7 @@ include('nav.php');
 
 if (!isset($_SESSION['USER_DATA'])) {
 
-  header("Location: login.php");
+  header("Location: login.php");     //redirects people who are not logged in to login page.
 }
 
 $x=$_SESSION['USER_DATA']['ID'];
@@ -18,10 +18,10 @@ if (isset($_POST['submit'])) {
   $title = $_POST['title'];
   $text = $_POST['text'];
   $date_str = $_POST['date'];
-  $text = mysqli_real_escape_string($connection, $text);
-  $title = mysqli_real_escape_string($connection, $title);
+  $text = mysqli_real_escape_string($connection, $text);   // This function adds a escape character before potentialy dangerous characters and helps prevent SQL injection attacks 
+  $title = mysqli_real_escape_string($connection, $title); //escapes special characters 
 
-  $date = date('Y/m/d', strtotime($date_str));
+  $date = date('Y/m/d', strtotime($date_str)); // $date is stored in date format to insert into database
 
 
 
@@ -29,15 +29,15 @@ if (isset($_POST['submit'])) {
 
   if (mysqli_query($connection, $sql)) {
     echo "<h3>Your story has been posted.";
-    echo $date;
-    header("Location: story_listing.php");
+
+    header("Location: story_listing.php");         // If story is posted succesfuly user is redirected to story_listing page
   } else {
     echo "ERROR! wasn't posted please try again <br>" . mysqli_error($connection);
   }
 
   mysqli_close($connection);
 
-  //header("Location: explore.php");
+ 
   die;
 }
 
@@ -104,8 +104,8 @@ if (isset($_POST['submit'])) {
 </div>
 
  <div class= "container  bg-light text-dark" style=" padding:50px;" >
-
-    <form action="" method="post" class="needs-validation" enctype="multipart/form-data">
+ <!-- Used Bootsrap form -->
+    <form action="" method="post" class="needs-validation" enctype="multipart/form-data">   
 
       <div class="mb-3">
         <label for="storytitle" class="form-label">Title</label>
@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
 
       <div class="mb-3">
         <label for="date" class="form-label"><b> Published date</label>
-        <input type="text" id="datepicker" class="form-control" name="date" placeholder="" required>
+        <input type="text" id="datepicker" class="form-control" name="date" placeholder="" required>  
 
       </div>
 
@@ -146,10 +146,10 @@ if (isset($_POST['submit'])) {
 
   </div>
 
-
+  
 
   <script>
-    $("#datepicker").datepicker({
+    $("#datepicker").datepicker({   //used Jquery date picker to get desired format of date.
       dateFormat: "dd MM yy"
     });
   </script>

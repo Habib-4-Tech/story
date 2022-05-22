@@ -5,7 +5,7 @@ include('db.php');
 
 
 
-$id = $Password = $User = "";
+$id = $Password = $User = ""; //Global variable declared
 
 $idErr = $PasswordErr = "";
 
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    if (empty($_POST["id"])) {
+    if (empty($_POST["id"])) {             
         $idErr = "User ID is required";
         $FlagError = 1;
     } else {
@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $User = mysqli_fetch_assoc($result);
 
             if ($User['user_id'] != $id) {
-                $idErr = "User ID doesn't Match";
+                $idErr = "User ID doesn't Match";    // checks if id matches
                 $FlagError = 1;
             }
         } else {
             $idErr =  "User ID does not exist";
-            $FlagError = 1;
+            $FlagError = 1;                        //error flag set to 1 if ID does not exist
         }
     }
 
@@ -45,27 +45,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Password = test_input($_POST["password"]);
 
         if ($User['password'] != $Password) {
-            $PasswordErr = "Password is not Matched";
-            $FlagError = 1;
+            $PasswordErr = "Password is not Matched";     
+            $FlagError = 1;                          //error flag set to 1 if password doesn't match
         }
     }
 
 
 
 
-    if ($FlagError == 0) {
+    if ($FlagError == 0) {    //if no error is found
 
 
         if (isset($_POST['submit'])) {
 
-            $_SESSION['USER_DATA'] = [
+            $_SESSION['USER_DATA'] = [             //set values session variable
                 'ID' => $User['user_id'],
                 'NAME' => $User['full_ame'],
 
             ];
 
-            if (isset($_POST['remember_me'])) {
-
+            if (isset($_POST['remember_me'])) {  // if user checks remeber me, cookie is set with specific expiration time
+ 
 
                 setcookie('user_id', $User['user_id'], time() + (24 * 60 * 60), "/");
             }
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             mysqli_close($connection);
 
 
-            header("Location:story_listing.php");
+            header("Location:story_listing.php");  // User is redirected to story listing page after succeesful login
         }
     }
 }
@@ -81,10 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function test_input($data)
 {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+    $data = trim($data);             //removes white space from both sides of string
+    $data = stripslashes($data);    //removes backslashes  
+    $data = htmlspecialchars($data); // converts some predefined characters to HTML entities
+    return $data;                    // processed string is returned
 }
 
 
@@ -154,9 +154,9 @@ function test_input($data)
             <div class="form-group">
                 <label for="id">User ID</label>
                 <input type="text" class="form-control" id="id" name="id"  
-                <?php
+                <?php                                                                                             //If cookie is set input the value and use plcaeholder if cookie is not set.
                 
-                  if(isset($_COOKIE['user_id'])) {   ?>  value="  <?php         echo $_COOKIE['user_id']; } ?>"  
+                  if(isset($_COOKIE['user_id'])) {   ?>  value="  <?php         echo $_COOKIE['user_id']; } ?>"      
                   <?php
                   if(!isset($_COOKIE['user_id'])) {   ?>    placeholder="Enter your user ID"
 
