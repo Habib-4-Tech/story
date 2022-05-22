@@ -1,3 +1,10 @@
+
+<?php
+
+$dummy="Dummy text";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
