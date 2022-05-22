@@ -17,6 +17,8 @@ if (!isset($_SESSION['USER_DATA']))  {
 
 if (isset($_GET['Story_id']))
 {
+
+
 $Story_id=$_GET['Story_id'];
 
 $sql= "Select *  FROM story where id= $Story_id";
@@ -24,6 +26,7 @@ $sql= "Select *  FROM story where id= $Story_id";
 $result = mysqli_query($connection, $sql);
 $result = mysqli_fetch_assoc($result);
 $N_title= $result['title'];
+$N_title=htmlentities($N_title);
 $N_text= $result['body'];
 
 $N_date=$result['str_date'];
@@ -49,8 +52,6 @@ if (isset($_POST['submit'])) {
     $date= date('Y/m/d',strtotime($date_str));
 
   
-
-    $sql= "INSERT INTO story(title,body,p_date,str_date) VALUES('$title','$text','$date','$date_str') ";
 
     $sql = "UPDATE story SET title='$title',body='$text',p_date='$date',str_date=' $date_str' WHERE id= $Story_id";
 
