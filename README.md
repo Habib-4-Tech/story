@@ -23,24 +23,24 @@
 ![Story](screenshots/register.png)
 
 ### Create New Story
-![Story](Screenshots/create_story.png)
+![Story](screenshots/create_story.png)
 
 ### Edit Story
-![Story](Screenshots/edit_story.png)
+![Story](screenshots/edit_story.png)
 
 ### Search Story 1
-![Story](Screenshots/search_story1.png)
+![Story](screenshots/search_story1.png)
 
 ### Search Story 2
-![Story](Screenshots/search_story2.png)
+![Story](screenshots/search_story2.png)
 
 ### JSON output
-![Story](Screenshots/JSON.png)
+![Story](screenshots/JSON.png)
 ### XML output
-![Story](Screenshots/XML.png)
+![Story](screenshots/XML.png)
 
 ### Delete confirmation
-![Story](Screenshots/delete.png)
+![Story](screenshots/delete.png)
 
 -----------------------
 ## Status
