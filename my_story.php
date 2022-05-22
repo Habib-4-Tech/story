@@ -6,15 +6,14 @@ $priv="";
 session_start();
 if (isset($_SESSION['USER_DATA'])) {
 
+
 $priv=$_SESSION['USER_DATA']['ID'];
+
 include('nav.php');
 }
-
 else{
-  include('nav_g.php');
+    header("Location: login.php");
 }
-
-
 ?>
 
 <?php
@@ -31,7 +30,7 @@ $results_per_page = 4;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Stories Listing Page</title>
+  <title>My News Stories</title>
 
 
   <style>
@@ -73,40 +72,14 @@ $results_per_page = 4;
       width: 20%;
       margin-left: 10px;
     }
-
-    .button-cp{
- 
-      color:black;
-      background-color:white;
-
-    }
-
   </style>
 
 </head>
 
 <body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <div class="conatiner" style="text-align:center;padding:50px;">
-    <h1><b> Stories Listing </b> </h1>
+    <h1><b> My Stories </b> </h1>
   </div>
 
   <?php
@@ -116,7 +89,7 @@ $results_per_page = 4;
     $page = 1;
   };
   $start_from = ($page - 1) * $results_per_page;
-  $sql = "SELECT * FROM story NATURAL JOIN user_data ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
+  $sql = "SELECT * FROM story NATURAL JOIN user_data where user_id='$priv' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
   $result = mysqli_query($connection, $sql);
   ?>
 
@@ -177,6 +150,9 @@ $results_per_page = 4;
 
         </form>
 
+
+
+
       </div>
     </div>
     <br>
@@ -188,7 +164,7 @@ $results_per_page = 4;
   <center>
 
     <?php
-    $sql = "SELECT COUNT(id) AS total FROM story";
+    $sql = "SELECT COUNT(id) AS total FROM story where user_id='$priv'";
 
     $result = mysqli_query($connection, $sql);
     $result = mysqli_fetch_assoc($result);
@@ -196,9 +172,13 @@ $results_per_page = 4;
 
 
     if ($page > 1) {
-      echo "<a href='story_listing.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "<a href='my_story.php?page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
       echo "&nbsp";
     }
+
+
+
+
 
 
     for ($i = 1; $i <= $total_pages; $i++) { 
@@ -208,16 +188,15 @@ $results_per_page = 4;
       if ($i == $page){
         $class="btn btn-light";
       }          
-      echo "<a href='story_listing.php?page=$i'class='$class'>  $i </a> ";
+      echo "<a href='my_story.php?page=$i'class='$class'>  $i </a> ";
       
-   
     }
 
 
   
     if ($page < $total_pages) {
       if ($page > 1 ) {
-        echo "<a href='story_listing.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
+        echo "<a href='my_story.php?page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
       }
     }
 

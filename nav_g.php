@@ -4,7 +4,14 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<nav class="navbar navbar-expand-lg navbar-white bg-dark" >
+
+
+
+
+
+
+
+
 
 <style>
   .white-text{
@@ -15,6 +22,10 @@
 
 
 
+
+
+<nav class="navbar navbar-expand-lg navbar-white bg-dark">
+
 <a class="navbar-brand white-text" href="index.php">
       <b> <i> N S </i></b>
 </a>
@@ -22,23 +33,8 @@
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item active white-text">
-        <a class="nav-link white-text" href="story_listing.php"> All Stories</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link white-text" href="create_story.php">Create Story</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link white-text" href="search.php">Search Story</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link white-text" href="my_story.php">My Stories</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link white-text" href="logout.php">Logout</a>
-      </li>
-      </ul>
-  
- 
+      <li class="nav-item active">
+        <a class="nav-link white-text" href="register.php"> Register Now</a>
+          </li>
   </div>
 </nav>

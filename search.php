@@ -3,7 +3,15 @@
 include('db.php');
 
 session_start();
+
+
+if (!isset($_SESSION['USER_DATA'])) {
+
+    header("Location: login.php");
+  }
 $priv=$_SESSION['USER_DATA']['ID'];
+include('nav.php');
+
 
 ?>
 
@@ -24,7 +32,7 @@ $search="";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Stories Listing Page</title>
+  <title>Search News Stories</title>
 
 
   <style>
@@ -78,9 +86,9 @@ $search="";
   </div>
 
 <div class="container bg-light text-dark" style="padding: 40px; margin: auto ; width:80%; border: 0%; box-shadow:0 0 0 0;">
-<form action="new.php" method="GET">
+<form action="search.php" method="GET">
 
-<input type="text" size="100" name="search" id="search" placeholder="Search by Title/Body/Author">
+<input type="text" size="100" name="search" id="search" placeholder="Search by Title/Author/Single key word">
 
 <button type="submit" class="button" name="submit" >Search</button>
 
@@ -105,7 +113,7 @@ $search="";
   {
 
   $search= $_GET['search'];
-
+  $search= test_input($search);
   $search= mysqli_real_escape_string($connection, $search);
   $start_from = ($page - 1) * $results_per_page;
   $sql = "SELECT * FROM story NATURAL JOIN user_data WHERE title LIKE '%$search%' or body LIKE '%$search%' or full_name LIKE '%$search%' ORDER BY p_date DESC LIMIT $start_from, " . $results_per_page;
@@ -118,6 +126,18 @@ $search="";
   }
 
   }
+
+
+
+
+
+  function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
   ?>
 
 
@@ -211,22 +231,29 @@ if($is_res==true){
 
 
     if ($page > 1) {
-      echo "<a href='new.php?search=$search&page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
+      echo "<a href='search.php?search=$search&page=" . ($page - 1) . "'class='btn btn-dark'> << </a>";
       echo "&nbsp";
     }
 
 
-    for ($i = 1; $i <= $total_pages; $i++) {  // print links for all pages
-      echo "<a href='new.php?search=$search&page=" . $i . "' class='btn btn-dark'";
-      if ($i == $page)  echo " class='curPage'";
-      echo ">" . $i . "</a> ";
-    }
 
+
+
+    for ($i = 1; $i <= $total_pages; $i++) { 
+      
+      $class="btn btn-dark";
+
+      if ($i == $page){
+        $class="btn btn-light";
+      }          
+      echo "<a href='search.php?search=$search&page=" . $i . "'class='$class'>  $i </a> ";
+      
+    }
 
   
     if ($page < $total_pages) {
       if ($page > 1 ) {
-        echo "<a href='new.php?search=$search&page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
+        echo "<a href='search.php?search=$search&page=" . ($page + 1) . "'class='btn btn-dark'> >> </a>";
       }
     }
     }
