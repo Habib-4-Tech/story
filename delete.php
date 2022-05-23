@@ -2,10 +2,11 @@
 <?php
 
 include('db.php');
+session_start();
 
 if (!isset($_SESSION['USER_DATA']))  {
       
-  header("Location: login.php"); //redirects people who are not logged in to login page.
+  header("Location: login.php");         //redirects people who are not logged in to login page.
      
 }
 
@@ -147,7 +148,7 @@ $value=mysqli_fetch_assoc($result);
   
    </form>
 
-    <!-- redirect user to story_listing page if he decides not to delet -->
+    <!-- redirect user to story_listing page if he decides not to delete -->
 
    <a href="story_listing.php" class="button">NO</a> 
 

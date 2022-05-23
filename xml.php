@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/xml');
+header('Content-Type: text/xml');   //output xml format insted of html
 include('db.php');
 
 $erroXML="<?xml version='1.0' encoding='UTF-8'?>
